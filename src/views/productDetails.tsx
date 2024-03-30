@@ -3,18 +3,19 @@ import {useEffect, useState} from "react";
 import {getProductDetailsById} from "../services/productService";
 import * as React from "react";
 import {AddShoppingCart, AttachMoney} from "@mui/icons-material";
+import {useParams} from "react-router-dom";
 
-const ProductDetails = () => {
+const ProductDetails = (props: any) => {
+    const params: any = useParams()
+    const [data, setData] = useState<any>(null)
+
     useEffect(() => {
         loadData()
     }, [])
 
-    const [data, setData] = useState<any>(null)
-
     const loadData = async () => {
-        const res = await getProductDetailsById(3)
+        const res = await getProductDetailsById(params?.id)
         if (res.status === 200) {
-            console.log(res.data)
             setData(res.data)
         }
     }
