@@ -10,6 +10,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import {Badge, BadgeProps} from "@mui/material";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import {useSelector} from "react-redux";
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -63,6 +64,8 @@ const StyledBadge = styled(Badge)<BadgeProps>(({theme}) => ({
 }));
 
 export default function Navbar() {
+    const cart = useSelector((state: any) => state.cart.value)
+
     return (
         <Box sx={{flexGrow: 1}}>
             <AppBar position="static">
@@ -95,7 +98,7 @@ export default function Navbar() {
                     </Search>
 
                     <IconButton aria-label="cart" style={{marginLeft: 10}}>
-                        <StyledBadge badgeContent={4} color="secondary">
+                        <StyledBadge badgeContent={cart?.length} color="secondary">
                             <ShoppingCartIcon/>
                         </StyledBadge>
                     </IconButton>

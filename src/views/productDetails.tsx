@@ -4,10 +4,23 @@ import {getProductDetailsById} from "../services/productService";
 import * as React from "react";
 import {AddShoppingCart, AttachMoney} from "@mui/icons-material";
 import {useParams} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {add, remove} from "../app/cartSlice";
+import {findObject} from "../commonFunc/commonFunctions";
 
 const ProductDetails = (props: any) => {
     const params: any = useParams()
     const [data, setData] = useState<any>(null)
+    const dispatch = useDispatch()
+    const cart = useSelector((state: any) => state.cart.value)
+
+    const addToCart = () => {
+        dispatch(add(data))
+    }
+
+    const removeFromCart = () => {
+        dispatch(remove(data))
+    }
 
     useEffect(() => {
         loadData()
@@ -20,6 +33,8 @@ const ProductDetails = (props: any) => {
         }
     }
 
+    const foundItem = findObject(cart, data?.id)
+
     return <Grid container spacing={6}>
         <Grid item xs={4}>
             <img src={data?.image} width={'100%'}/>
@@ -31,8 +46,10 @@ const ProductDetails = (props: any) => {
             <p>{data?.description ?? ''}</p>
 
             <div style={{display: 'flex'}}>
-                <Button variant="contained" size="small" color='success'>
-                    <AddShoppingCart style={{marginRight: 10}}/> Add to Cart
+                <Button variant="contained" size="small"
+                        style={{backgroundColor: foundItem?.id === data?.id ? 'grey' : 'green'}}
+                        onClick={() => (foundItem?.id === data?.id) ? removeFromCart() : addToCart()}>
+                    {foundItem?.id === data?.id ? 'Added to Cart' : 'Add to Cart'}
                 </Button>
 
                 <Button variant="contained" size="small" color='warning' style={{marginLeft: 10}}>

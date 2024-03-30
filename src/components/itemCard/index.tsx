@@ -2,16 +2,30 @@ import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
 import {Button, CardActionArea, Divider, Grid} from '@mui/material';
 import {Link} from 'react-router-dom';
+import {useSelector, useDispatch} from "react-redux";
+import {add, remove} from "../../app/cartSlice";
+import {findObject} from "../../commonFunc/commonFunctions";
 
 const linkStyle = {
     textDecoration: 'none', color: '#000'
 }
 
 export default function ItemCard(props: any) {
-    const {data} = props
+    const {data, index} = props
+    const dispatch = useDispatch()
+    const cart = useSelector((state: any) => state.cart.value)
+
+    const addToCart = () => {
+        dispatch(add(data))
+    }
+
+    const removeFromCart = () => {
+        dispatch(remove(data))
+    }
+
+    const foundItem = findObject(cart, data.id)
 
     return (
         <Card sx={{maxWidth: 345}}>
@@ -46,8 +60,10 @@ export default function ItemCard(props: any) {
 
                     <Grid container rowSpacing={1} columnSpacing={{xs: 1, sm: 2, md: 3}} style={{marginTop: 10}}>
                         <Grid item xs={6}>
-                            <Button variant="contained" size="small" color='success'>
-                                Add to Cart
+                            <Button variant="contained" size="small"
+                                    style={{backgroundColor: foundItem?.id === data?.id ? 'grey' : 'green'}}
+                                    onClick={() => (foundItem?.id === data?.id) ? removeFromCart() : addToCart()}>
+                                {foundItem?.id === data?.id ? 'Added to Cart' : 'Add to Cart'}
                             </Button>
                         </Grid>
                         <Grid item xs={6} style={{display: 'flex', justifyContent: 'right'}}>
