@@ -8,6 +8,8 @@ import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
+import {Badge, BadgeProps} from "@mui/material";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -51,6 +53,15 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
     },
 }));
 
+const StyledBadge = styled(Badge)<BadgeProps>(({theme}) => ({
+    '& .MuiBadge-badge': {
+        right: -3,
+        top: 13,
+        border: `2px solid ${theme.palette.background.paper}`,
+        padding: '0 4px',
+    },
+}));
+
 export default function Navbar() {
     return (
         <Box sx={{flexGrow: 1}}>
@@ -82,6 +93,12 @@ export default function Navbar() {
                             inputProps={{'aria-label': 'search'}}
                         />
                     </Search>
+
+                    <IconButton aria-label="cart" style={{marginLeft: 10}}>
+                        <StyledBadge badgeContent={4} color="secondary">
+                            <ShoppingCartIcon/>
+                        </StyledBadge>
+                    </IconButton>
                 </Toolbar>
             </AppBar>
         </Box>
