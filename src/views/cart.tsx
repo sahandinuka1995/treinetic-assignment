@@ -113,7 +113,7 @@ const Cart = (props: any) => {
             justifyContent="flex-end"
             alignItems="flex-end"
         >
-            <Button variant="contained">Checkout</Button>
+            <Button variant="contained" className={'btn-md btn-primary'}>Checkout</Button>
         </Box>
     </Container>
 }
