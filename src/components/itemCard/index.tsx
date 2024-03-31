@@ -2,7 +2,7 @@ import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import {Button, CardActionArea, Divider, Grid} from '@mui/material';
+import {Button, CardActionArea, Divider, Grid, Rating} from '@mui/material';
 import {Link} from 'react-router-dom';
 import {useSelector, useDispatch} from "react-redux";
 import {add, remove} from "../../app/cartSlice";
@@ -36,42 +36,33 @@ export default function ItemCard(props: any) {
                         height="140"
                         image={data.image}
                         alt="green iguana"
+                        style={{padding: 20}}
                     />
                 </Link>
                 <CardContent>
                     <Link to={`/product/${data?.id}`} style={linkStyle}>
                         <>
-                            <Grid container spacing={{xs: 1, md: 1}} columns={12}
-                                  style={{display: 'flex', alignItems: 'center'}}>
-                                <Grid item md={9}>
-                                    <strong>{data?.title}</strong>
-                                </Grid>
+                            <p style={{
+                                marginTop: 0,
+                                marginBottom: 10,
+                                fontWeight: 'bold'
+                            }}>{data?.title?.substring(0, 20)}...</p>
+                            <Rating name="read-only" value={data?.rating?.rate ?? 0} readOnly size="small"/>
+                            <br/>
+                            <strong style={{fontSize: 20}}>${data?.price}</strong>
 
-                                <Grid item md={3}>
-                                    <strong style={{fontSize: 20}}>${data?.price}</strong>
-                                </Grid>
-                            </Grid>
-
-                            <p style={{marginTop: 10}}>{data?.description?.substring(0, 80)}...</p>
+                            <p style={{marginTop: 10}}>{data?.description?.substring(0, 15)}...</p>
                         </>
                     </Link>
 
                     <Divider/>
 
-                    <Grid container rowSpacing={1} columnSpacing={{xs: 1, sm: 2, md: 3}} style={{marginTop: 10}}>
-                        <Grid item xs={6}>
-                            <Button variant="contained" size="small"
-                                    style={{backgroundColor: foundItem?.id === data?.id ? 'grey' : 'green'}}
-                                    onClick={() => (foundItem?.id === data?.id) ? removeFromCart() : addToCart()}>
-                                {foundItem?.id === data?.id ? 'Added to Cart' : 'Add to Cart'}
-                            </Button>
-                        </Grid>
-                        <Grid item xs={6} style={{display: 'flex', justifyContent: 'right'}}>
-                            <Button variant="contained" size="small" color='warning'>
-                                Buy Now
-                            </Button>
-                        </Grid>
-                    </Grid>
+                    <Button variant="contained" size="small"
+                            className={`btn ${foundItem?.id === data?.id ? 'btn-secondary' : 'btn-primary'}`}
+                            style={{marginTop: 10}}
+                            onClick={() => (foundItem?.id === data?.id) ? removeFromCart() : addToCart()}>
+                        {foundItem?.id === data?.id ? 'Added to Cart' : 'Add to Cart'}
+                    </Button>
                 </CardContent>
             </CardActionArea>
         </Card>

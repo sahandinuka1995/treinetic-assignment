@@ -40,6 +40,19 @@ code {
     color: #707070;
 }
 
-.justify-content-end{
+.justify-content-end {
     justify-content: end;
+}
+
+.btn-primary {
+    background-color: #EB1C2E !important;
+}
+
+.btn-secondary {
+    background-color: #595959 !important;
+}
+
+.btn {
+    width: 100%;
+    border-radius: 30px !important;
 }

@@ -69,8 +69,8 @@ export default function Navbar() {
     const navigate = useNavigate();
 
     return (
-        <Box sx={{flexGrow: 1}}>
-            <AppBar position="static">
+        <Box sx={{flexGrow: 1}} style={{height: 60}}>
+            <AppBar position="fixed" className={'btn-primary'}>
                 <Toolbar>
                     <IconButton
                         size="large"
@@ -99,7 +99,7 @@ export default function Navbar() {
                         />
                     </Search>
 
-                    <IconButton aria-label="cart" style={{marginLeft: 10}} onClick={() => {
+                    <IconButton aria-label="cart" style={{marginLeft: 10, color: 'white'}} onClick={() => {
                         navigate('/cart')
                     }}>
                         <StyledBadge badgeContent={cart?.length} color="secondary">
