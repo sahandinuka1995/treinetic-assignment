@@ -17,6 +17,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Navbar from "../navbar";
 import {ReactNode} from "react";
+import {Home, ShoppingCart} from "@mui/icons-material";
 
 const drawerWidth = 240;
 
@@ -30,6 +31,17 @@ interface Props {
 }
 
 export default function Layout(props: Props) {
+    const navList = [
+        {
+            icon: <Home/>,
+            name: 'Home'
+        },
+        {
+            icon: <ShoppingCart/>,
+            name: 'Cart'
+        }
+    ]
+
     const {window} = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const [isClosing, setIsClosing] = React.useState(false);
@@ -54,13 +66,13 @@ export default function Layout(props: Props) {
             <Toolbar/>
             <Divider/>
             <List>
-                {['Home', 'Shopping Cart'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
+                {navList.map((item, index) => (
+                    <ListItem key={index} disablePadding>
                         <ListItemButton>
                             <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}
+                                {item.icon}
                             </ListItemIcon>
-                            <ListItemText primary={text}/>
+                            <ListItemText primary={item.name}/>
                         </ListItemButton>
                     </ListItem>
                 ))}
@@ -68,7 +80,6 @@ export default function Layout(props: Props) {
         </div>
     );
 
-    // Remove this const when copying and pasting into your project.
     const container = window !== undefined ? () => window().document.body : undefined;
 
     return (<>
@@ -80,7 +91,6 @@ export default function Layout(props: Props) {
                 sx={{width: {sm: drawerWidth}, flexShrink: {sm: 0}}}
                 aria-label="mailbox folders"
             >
-                {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
                 <Drawer
                     container={container}
                     variant="temporary"
