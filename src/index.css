@@ -39,3 +39,7 @@ code {
 .text-grey {
     color: #707070;
 }
+
+.justify-content-end{
+    justify-content: end;
+}
