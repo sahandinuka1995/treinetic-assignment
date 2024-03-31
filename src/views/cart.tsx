@@ -8,19 +8,40 @@ import {
     Divider,
     Grid,
     Typography,
-    Button
+    Button, Snackbar, Alert
 } from "@mui/material";
 import * as React from "react";
 import QuantityInput from "../components/quantityInput";
 import {useDispatch, useSelector} from "react-redux";
 import {changeQty, remove} from "../app/cartSlice";
+import {useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
 
-const Cart = () => {
+const Cart = (props: any) => {
+    const navigate = useNavigate();
     const dispatch = useDispatch()
     const cart = useSelector((state: any) => state.cart.value)
     let totalPrice = 0
+    const [toast, setToast] = useState(false)
+
+    useEffect(() => {
+        if (cart.length < 1) {
+            setToast(true)
+        }
+    }, [])
 
     return <Container maxWidth="md">
+        <Snackbar open={toast} autoHideDuration={6000} onClose={() => setToast(false)}>
+            <Alert
+                onClose={() => setToast(false)}
+                severity="warning"
+                variant="filled"
+                sx={{width: '100%'}}
+            >
+                Your cart is empty!
+            </Alert>
+        </Snackbar>
+
         <h2>Shopping Cart</h2>
         <Grid container spacing={{xs: 1, md: 4}} columns={{md: 12}}>
             {

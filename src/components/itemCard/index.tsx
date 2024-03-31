@@ -28,7 +28,7 @@ export default function ItemCard(props: any) {
     const foundItem = findObject(cart, data.id)
 
     return (
-        <Card sx={{maxWidth: 345}}>
+        <Card>
             <CardActionArea>
                 <Link to={`/product/${data?.id}`} style={linkStyle}>
                     <CardMedia
