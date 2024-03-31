@@ -18,6 +18,7 @@ import Typography from '@mui/material/Typography';
 import Navbar from "../navbar";
 import {ReactNode} from "react";
 import {Home, ShoppingCart} from "@mui/icons-material";
+import {Link} from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -34,11 +35,13 @@ export default function Layout(props: Props) {
     const navList = [
         {
             icon: <Home/>,
-            name: 'Home'
+            name: 'Home',
+            link: '/'
         },
         {
             icon: <ShoppingCart/>,
-            name: 'Cart'
+            name: 'Cart',
+            link: '/cart'
         }
     ]
 
@@ -68,12 +71,14 @@ export default function Layout(props: Props) {
             <List>
                 {navList.map((item, index) => (
                     <ListItem key={index} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                {item.icon}
-                            </ListItemIcon>
-                            <ListItemText primary={item.name}/>
-                        </ListItemButton>
+                        <Link to={item.link} className={'text-decoration-none text-grey w-100'}>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    {item.icon}
+                                </ListItemIcon>
+                                <ListItemText primary={item.name}/>
+                            </ListItemButton>
+                        </Link>
                     </ListItem>
                 ))}
             </List>

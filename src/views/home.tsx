@@ -13,7 +13,13 @@ const Home = () => {
     const loadData = async () => {
         const res = await getAllProducts()
         if (res.status === 200) {
-            setData(res.data)
+            // @ts-ignore
+            setData(res.data.map((item: any) => {
+                return {
+                    ...item,
+                    qty: 1
+                }
+            }))
         }
     }
 
